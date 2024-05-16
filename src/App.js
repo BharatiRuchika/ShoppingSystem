@@ -44,7 +44,7 @@ function App() {
               {/* Display Products component at the root path */}
               <Route path="/" element={<Products />} />
               {/* Display SignIn component at the /signin path */}
-              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signin" element={<SignIn />} />c
               {/* Display SignUp component at the /signup path */}
               <Route path="/signup" element={<SignUp />} />
               {/* Display Orders component at the /orders path */}
