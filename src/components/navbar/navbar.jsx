@@ -27,7 +27,7 @@ const Navbar = () => {
                         <li className='nav-item active'>
                             <NavLink to="/" className={`${styles.navLinks} active`}>
                                 <span>
-                                    <img src="https://bharatiruchika.github.io/images/home.png"></img>
+                                    <img src="https://BharatiRuchika.github.io/ShoppingSystem/images/home.png"></img>
                                 </span>
                                 Home
                             </NavLink>
@@ -39,7 +39,7 @@ const Navbar = () => {
                         <li className='nav-item active'>
                             <NavLink to="/orders" className={`${styles.navLinks}`}>
                                 <span>
-                                    <img src="https://bharatiruchika.github.io/images/orders.png"></img>
+                                    <img src="https://BharatiRuchika.github.io/ShoppingSystem/images/orders.png"></img>
                                 </span>
                                 My Orders
                             </NavLink>
@@ -48,7 +48,7 @@ const Navbar = () => {
                         <li className='nav-item active'>
                                 <NavLink to="/cart" className={`${styles.navLinks}`}>
                                     <span>
-                                        <img src="https://bharatiruchika.github.io/images/cart.png"></img>
+                                        <img src="https://BharatiRuchika.github.io/ShoppingSystem/images/cart.png"></img>
                                     </span>
                                     Cart
                                 </NavLink>
@@ -58,7 +58,7 @@ const Navbar = () => {
                             <li className='nav-item active'>
                                 <NavLink  to="/" onClick={logOut} className={`${styles.navLinks}`}>
                                     <span>
-                                        <img src="https://bharatiruchika.github.io/images/orders.png"></img>
+                                        <img src="https://BharatiRuchika.github.io/ShoppingSystem/images/orders.png"></img>
                                     </span>
                                     Logout
                                 </NavLink>
@@ -67,7 +67,7 @@ const Navbar = () => {
                             <li className={`${styles.navLinks}`}>
                                 <NavLink to="/signin" className={`${styles.navLinks}`}>
                                     <span>
-                                        <img src="https://bharatiruchika.github.io/images/home.png"></img>
+                                        <img src="https://BharatiRuchika.github.io/ShoppingSystem/images/home.png"></img>
                                     </span>
                                     Login
                                 </NavLink>
