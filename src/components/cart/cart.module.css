@@ -1,0 +1,62 @@
+.totalPrice{
+    width: 250px;
+    height: 150px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    background-color: rgb(241,241,241);
+    position: fixed;
+    top: 30%;
+    left: 2%;
+    padding: 17px;
+    box-sizing: border-box;
+}
+
+.totalPrice p{
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.totalPrice button {
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(112,100,229);
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: all .3s ease-in-out;
+}
+
+
+
+.removeBtn{
+    background-color: rgb(241,68,70);
+    color: white;
+    border: none;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    padding: .75rem 0;
+    transition: all .3s ease-in-out;
+    width: 100%;
+    border: 1ox solid rgb(241,68,70);
+}
+
+.removeBtn:hover{
+    background-color: white;
+    color: rgb(241,68,70);
+    border: 1px solid rgb(241,68,70);
+}
+
+.totalPrice button:hover{
+    background-color: white;
+    color: rgb(112,100,229);
+    border: 1px solid rgb(112,100,229)
+}
+
+.quantityContainer{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+}
