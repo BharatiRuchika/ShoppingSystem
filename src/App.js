@@ -42,12 +42,13 @@ function App() {
             {/* Define routes for different paths */}
             <Routes>
               {/* Display Products component at the root path */}
-              <Route path="/" element={<Products />} />
+              <Route path="https://bharatiruchika.github.io/ShoppingSystem/" element={<Products />} />
               {/* Display SignIn component at the /signin path */}
-              <Route path="/signin" element={<SignIn />} />c
+              <Route path="https://bharatiruchika.github.io/ShoppingSystem/" element={<SignIn />} />
               {/* Display SignUp component at the /signup path */}
               <Route path="/signup" element={<SignUp />} />
               {/* Display Orders component at the /orders path */}
+             
               <Route path="/orders" element={<Orders />} />
               {/* Display Cart component at the /cart path  */}
               <Route path="/cart" element={<Cart />} />
