@@ -29,7 +29,7 @@ const Products = () => {
     // Effect to filter products based on category, price, and search
     useEffect(() => {
         let products = data
-
+        console.log('products',products)
         // Filter products based on selected categories
         if (category.length != 0) {
             products = products.filter(item => category.includes(item.category.toLowerCase()));

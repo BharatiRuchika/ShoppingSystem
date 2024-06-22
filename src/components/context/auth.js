@@ -56,6 +56,8 @@ const AuthProvider = ({ children }) => {
     // Function to handle user signup
     const signup = async(email, password, name) =>{
         // Get the authentication instance
+        console.log('email',email)
+        console.log('password',password)
         const auth = getAuth();
         try{
             // Create a new user with the provided email and password
@@ -78,6 +80,7 @@ const AuthProvider = ({ children }) => {
             setSuccess('User signed up successfully!');  
         }catch(error){
             // Set error message if signup fails
+            console.log('error',error.message)
             setError(error.message);
         }
     }

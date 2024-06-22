@@ -32,6 +32,7 @@ const ProductProvider = ({ children }) => {
 
     useEffect(() => {
         if (user) {
+            console.log('user',user)
             const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
                 // storing all the data in cart
                 setCart(doc.data().cart);

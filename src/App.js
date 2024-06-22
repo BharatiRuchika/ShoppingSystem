@@ -24,6 +24,10 @@ import SignIn from './components/SignIn/signin';
 // import AuthProvider from './components/context/auth'
 import { AuthProvider } from './components/context/auth'
 
+import {store} from "./redux/store";
+
+import { Provider } from "react-redux";
+
 // import ProductProvider from './components/context/product'
 import { ProductProvider } from './components/context/product';
 
@@ -42,9 +46,9 @@ function App() {
             {/* Define routes for different paths */}
             <Routes>
               {/* Display Products component at the root path */}
-              <Route path="https://bharatiruchika.github.io/ShoppingSystem/" element={<Products />} />
+              <Route path="/" element={<Products />} />
               {/* Display SignIn component at the /signin path */}
-              <Route path="https://bharatiruchika.github.io/ShoppingSystem/" element={<SignIn />} />
+              <Route path="/signin" element={<SignIn />} />
               {/* Display SignUp component at the /signup path */}
               <Route path="/signup" element={<SignUp />} />
               {/* Display Orders component at the /orders path */}
