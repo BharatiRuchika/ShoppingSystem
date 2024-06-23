@@ -2,14 +2,16 @@
 import styles from "./orders.module.css"
 
 // Import custom product context hook
-import useProduct from "../context/product"
+import { useSelector } from "react-redux"
+import { authSelector } from "../../redux/reducers/authReducer"
+import { productSelector } from "../../redux/reducers/productReducer"
 
 // Define the Orders component
 const Orders = () => {
     
     // Destructure values from custom product context hook
-    const { success, error, orders } = useProduct()
-
+    const { success, error, orders } = useSelector(productSelector)
+    console.log('orders',orders)
     // Render the Orders component
     return (<>
     {/* Container for orders */}
@@ -35,7 +37,7 @@ const Orders = () => {
                                 </thead>
                                 <tbody>
                                     {/* Display items in the order */}
-                                    {order.list.map((item)=>{
+                                    {order.cart.map((item)=>{
                                         return (<tr>
                                             <td> {item.name} </td>
                                             <td> {item.price} </td>
@@ -45,7 +47,7 @@ const Orders = () => {
                                     })}
                                 </tbody>
                                 {/* Display total amount */}
-                                <tr className={`${styles.totalPrice}`}><td>₹ {order.amount}</td></tr>
+                                <tr className={`${styles.totalPrice}`}><td>₹ {order.orderTotal}</td></tr>
                             </table>
                         </div>)
                         })}

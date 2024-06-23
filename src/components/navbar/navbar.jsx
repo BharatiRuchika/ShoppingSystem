@@ -2,16 +2,52 @@
 import styles from './navbar.module.css'
 
 // Import custom authentication context hook and NavLink from React Router
-import useAuth from '../context/auth'
-import { NavLink } from 'react-router-dom'
+// import useAuth from '../context/auth'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { authSelector } from '../../redux/reducers/authReducer'
+import { useDispatch } from 'react-redux'
+import { actions } from '../../redux/reducers/authReducer'
+import { useEffect, useState } from 'react'
+import { signOut, getAuth } from 'firebase/auth';
 
+
+import { Navigate } from 'react-router-dom'
 // Define the Navbar component
 const Navbar = () => {
     // Destructure values from custom authentication context hook
-    const { user, success, error, logOut, setSuccess } = useAuth()
+    const { user, success, error, logout } = useSelector(authSelector)
+    const navigate = useNavigate()
+    
 
+    // useEffect(()=>{
+    //     if(success){
+    //         toast.success(success)
+    //         // dispatch(actions.clearNoty())
+    //         navigate("/signin")
+    //     }
+    // },[success])
+    
+    const dispatch = useDispatch()
      // Render the Navbar component
+
+    // Function to handle user logout
+    const logOut = async() => {
+        // Get the authentication instance
+        const auth = getAuth();
+        try {
+            // Sign out the current user
+            await signOut(auth);
+            dispatch(actions.logout())
+            
+            
+        } catch (error) {
+            // Handle sign-out errors here
+            dispatch(actions.error(error.message))
+        }
+    }
     return (<>
+    
         {/* Navbar container */}
         <div className='row'>
             <div className={ styles.navbar }>
@@ -56,7 +92,7 @@ const Navbar = () => {
                             
                             {/* Logout link */}
                             <li className='nav-item active'>
-                                <NavLink  to="/" onClick={logOut} className={`${styles.navLinks}`}>
+                                <NavLink  to="/" onClick={()=>logOut()} className={`${styles.navLinks}`}>
                                     <span>
                                         <img src="https://BharatiRuchika.github.io/ShoppingSystem/images/orders.png"></img>
                                     </span>

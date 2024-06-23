@@ -26,20 +26,21 @@ import { AuthProvider } from './components/context/auth'
 
 import {store} from "./redux/store";
 
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 
 // import ProductProvider from './components/context/product'
 import { ProductProvider } from './components/context/product';
-
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,signOut } from 'firebase/auth';
 // import db from './components/firebase'
 import {db} from "./components/firebase"
 
+import { collection, addDoc,getDoc, updateDoc, arrayUnion, doc, onSnapshot, arrayRemove } from "firebase/firestore";
+import { actions } from './redux/reducers/authReducer';
+import { useEffect } from 'react';
 function App() {
     return (
-      <AuthProvider>
-         {/* Provide product context to all components within ProductProvider  */}
-        <ProductProvider>
-          {/* Set up client-side routing */}
+   
+          <Provider store={store}>
           <BrowserRouter>
           {/* Include navigation bar component */}
             <Navbar />
@@ -47,10 +48,11 @@ function App() {
             <Routes>
               {/* Display Products component at the root path */}
               <Route path="/" element={<Products />} />
-              {/* Display SignIn component at the /signin path */}
+              {/* Display SignIn component at the /signin path */} 
               <Route path="/signin" element={<SignIn />} />
               {/* Display SignUp component at the /signup path */}
               <Route path="/signup" element={<SignUp />} />
+              
               {/* Display Orders component at the /orders path */}
              
               <Route path="/orders" element={<Orders />} />
@@ -58,8 +60,8 @@ function App() {
               <Route path="/cart" element={<Cart />} />
             </Routes>
           </BrowserRouter>
-        </ProductProvider>
-      </AuthProvider>
+          </Provider>
+      
     );
 }
 

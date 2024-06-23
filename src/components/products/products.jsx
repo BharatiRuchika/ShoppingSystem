@@ -3,33 +3,72 @@ import styles from "./products.module.css"
 
 // Import necessary dependencies and custom context hook
 import { data } from "../../../src/assets/data"
-import useProduct from "../context/product"
-import { useEffect, useState } from "react"
+// import useProduct from "../context/product"
+import { act, useEffect, useState } from "react"
 import { toast } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
+import { actions } from "../../redux/reducers/productReducer";
+import {actions as actions1} from "../../redux/reducers/authReducer"
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { productSelector } from "../../redux/reducers/productReducer";
+import { authSelector } from "../../redux/reducers/authReducer";
+import { db } from "../firebase"
+import { useNavigate } from "react-router-dom";
+import { collection, addDoc,getDoc, updateDoc, arrayUnion, doc, onSnapshot, arrayRemove } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged,signOut } from 'firebase/auth';
 
 // Define the Products component
 const Products = () => {
     // Destructure values from custom product context hook
-    const { cart, addToCart, success, error, loading, total, index, cartCount, setSuccess } = useProduct()
-
+  
+    const navigate = useNavigate()
+    const { cart, success, error, total, cartCount } = useSelector(productSelector)
+    // console.log('cart',cart)
+   
+    const { user, authSuccess, authError} = useSelector(authSelector)
+   
+    // console.log('user',user)
      // Initialize state variables
     const [ price, setPrice ] = useState(75000)
     const [ category, setCategory ] = useState([])
     const [ products, setProducts ] = useState(data)
     const [ search, setSearch ] = useState("")
-
+    const [ loading, setLoading ] = useState(false)
+    const [index, setIndex] = useState(-1)
+    const dispatch = useDispatch()
+    console.log('success',success)
+    console.log('authSuccess',authSuccess)
+  
     // Effect to handle successful action
-    useEffect(() => {
+    useEffect(()=>{
         if (success) {
             toast.success(success)
-            setSuccess("")
+            dispatch(actions.clearProductNoty())
         }
-    }, [success])
+        if(authSuccess){
+            toast.success(authSuccess)
+            dispatch(actions1.clearAuthNoty())
+        }
+        
+        if(authError){
+            toast.error(error)
+            dispatch(actions1.clearAuthNoty())
+
+        }
+        if(error){
+            toast.error(error)
+            dispatch(actions.clearProductNoty())
+        }
+        // dispatch(actions.clearNoty())
+        // console.log('cart',user.cart)
+        // dispatch(actions.initializeCart(user.cart))
+    },[dispatch,error,authError,success,authSuccess,cart])
 
     // Effect to filter products based on category, price, and search
     useEffect(() => {
         let products = data
-        console.log('products',products)
+     
         // Filter products based on selected categories
         if (category.length != 0) {
             products = products.filter(item => category.includes(item.category.toLowerCase()));
@@ -56,8 +95,57 @@ const Products = () => {
         }
     }
 
+    const increaseQty = async(index)=>{
+        // increase product quantity and update in useState
+       
+        // increase itemCount 
+        const newCart = [...cart];
+        const item = { ...newCart[index] };
+        item.quantity = item.quantity + 1;
+        newCart[index] = item;
+
+          // update cart in firebase database
+        const userRef = doc(db, "users", user.uid);
+        await updateDoc(userRef, {
+            cart: newCart
+        });
+        dispatch(actions.increaseQty({ cart: newCart, index }));
+        setLoading(false)
+    }
+
+
+    const addToCart = async(product,index) => {
+        if (!user) {
+           
+            toast.error("please first login!!")
+            navigate("/signin")
+            return
+        }
+        
+        setLoading(true)
+        setIndex(index)
+        const i = cart.findIndex((item) => item.id === product.id);
+        if (i !== -1) {
+            // if product already in cart then increase quantity
+            increaseQty(i);
+            return;
+        }
+       
+
+        // add product to the cart of loggedIn user
+
+        const userRef = doc(db, "users", user.uid);
+        await updateDoc(userRef, {
+            cart: arrayUnion({ quantity: 1, ...product })
+        });
+        dispatch(actions.addToCart({cart:product,index}))
+        setLoading(false)
+        setIndex(-1)
+    }
+
     // Render the Products component
     return (<>
+     <ToastContainer />
         <div className={`${styles.filterComponent}`}>
             <h2 className={`${styles.filterLabel}`}>Filter</h2>
             <form>
