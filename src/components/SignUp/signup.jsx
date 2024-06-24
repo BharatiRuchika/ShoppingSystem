@@ -35,6 +35,7 @@ const SignUp = () => {
     useEffect(()=>{
         if(authSuccess){
             // Navigate to home page
+            
             navigate("/")
         }
     },[authSuccess])
@@ -50,9 +51,17 @@ const SignUp = () => {
 
     // Function to handle sign-up form submission
     const handleSignUp = async (e) => {
+        
         e.preventDefault()
-         // Call sign-up function from custom authentication hook
 
+         // Call sign-up function from custom authentication hook
+         console.log('im in signup')
+         console.log('target',e.target.name)
+         if(name=="" || password=="" || email==""){
+            console.log('im in null')
+            toast.error("Enter all details")
+            return
+        }
         const auth = getAuth();
         try{
             // Create a new user with the provided email and password
@@ -91,7 +100,7 @@ const SignUp = () => {
             <form className={`${styles.loginPageForm}`}>
                 <h2 className={`${styles.loginTitle}`}>Sign Up</h2>
                 
-                <input type="text" name="name" value={name} placeholder="Enter Name" className={`${styles.loginInput}`} onChange={(e) => setName(e.target.value)}/>
+                <input type="text" name="name" required value={name} placeholder="Enter Name" className={`${styles.loginInput}`} onChange={(e) => setName(e.target.value)}/>
 
                 <input type="email" name="email"  value={email} placeholder="Enter Email" className={`${styles.loginInput}`} onChange={(e) => setEmail(e.target.value)}/>
 

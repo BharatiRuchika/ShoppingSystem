@@ -37,10 +37,11 @@ const SignIn = () => {
             // dispatch(actions.clearNoty())
         }
     },[ authSuccess ])
-
+    console.log('authError',authError)
     useEffect(()=>{
         if(authError){
           toast.error(authError)
+          dispatch(actions.clearAuthNoty())
         }
     },[ authError ])
 
